@@ -1,7 +1,7 @@
 {
-  "name": "core-goal-sidebar",
-  "displayName": "Core Goal Sidebar",
-  "description": "管理 AI 编程助手的核心目标：三级作用域（全局/工作区/窗口）× 两类（核心/一般），自动注入 Reasonix/Hermes 的 system prompt 前缀，永不遗忘。",
+  "name": "mental-seal",
+  "displayName": "Mental Seal · 思想钢印",
+  "description": "思想钢印：将核心目标不可逆地刻入 AI 的 system prompt 前缀。对话再长、压缩再狠，信念永在。",
   "version": "0.1.0",
   "publisher": "local",
   "engines": { "vscode": "^1.85.0" },
@@ -13,7 +13,7 @@
       "activitybar": [
         {
           "id": "core-goal-sidebar",
-          "title": "核心目标",
+          "title": "思想钢印",
           "icon": "resources/icons/goal.svg"
         }
       ]

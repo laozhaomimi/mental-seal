@@ -4,9 +4,9 @@ import * as path from 'path';
 import * as os from 'os';
 import { GoalData, Scope } from './types';
 
-const MARKER_START = '<!-- CORE-GOAL-EXTENSION:START -->';
-const MARKER_END = '<!-- CORE-GOAL-EXTENSION:END -->';
-const MANAGED_HEADER = '## 🎯 核心目标（由 Core Goal Sidebar 管理）';
+const MARKER_START = '<!-- MENTAL-SEAL:START -->';
+const MARKER_END = '<!-- MENTAL-SEAL:END -->';
+const MANAGED_HEADER = '## 🎯 核心目标（由 Mental Seal · 思想钢印 管理）';
 
 /** 全局目标文件：reasonix home 下的 REASONIX.md */
 export function globalFilePath(): string {
