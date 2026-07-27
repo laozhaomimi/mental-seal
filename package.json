@@ -1,0 +1,63 @@
+{
+  "name": "core-goal-sidebar",
+  "displayName": "Core Goal Sidebar",
+  "description": "管理 AI 编程助手的核心目标：三级作用域（全局/工作区/窗口）× 两类（核心/一般），自动注入 Reasonix/Hermes 的 system prompt 前缀，永不遗忘。",
+  "version": "0.1.0",
+  "publisher": "local",
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["Other"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "core-goal-sidebar",
+          "title": "核心目标",
+          "icon": "resources/icons/goal.svg"
+        }
+      ]
+    },
+    "views": {
+      "core-goal-sidebar": [
+        { "id": "coreGoalView", "name": "目标管理" },
+        { "id": "coreGoalEditor", "name": "编辑", "type": "webview" }
+      ]
+    },
+    "commands": [
+      { "command": "coreGoal.addCore", "title": "添加核心目标", "icon": "$(add)" },
+      { "command": "coreGoal.addNormal", "title": "添加一般目标", "icon": "$(lightbulb)" },
+      { "command": "coreGoal.edit", "title": "编辑", "icon": "$(edit)" },
+      { "command": "coreGoal.delete", "title": "删除", "icon": "$(trash)" },
+      { "command": "coreGoal.moveUp", "title": "上移", "icon": "$(arrow-up)" },
+      { "command": "coreGoal.moveDown", "title": "下移", "icon": "$(arrow-down)" },
+      { "command": "coreGoal.openFile", "title": "打开目标文件", "icon": "$(file)" },
+      { "command": "coreGoal.refresh", "title": "刷新", "icon": "$(refresh)" }
+    ],
+    "menus": {
+      "view/title": [
+        { "command": "coreGoal.addCore", "when": "view == coreGoalView", "group": "navigation@1" },
+        { "command": "coreGoal.addNormal", "when": "view == coreGoalView", "group": "navigation@2" },
+        { "command": "coreGoal.refresh", "when": "view == coreGoalView", "group": "navigation@3" }
+      ],
+      "view/item/context": [
+        { "command": "coreGoal.edit", "when": "view == coreGoalView && viewItem =~ /goal/", "group": "inline@1" },
+        { "command": "coreGoal.delete", "when": "view == coreGoalView && viewItem =~ /goal/", "group": "inline@2" },
+        { "command": "coreGoal.moveUp", "when": "view == coreGoalView && viewItem =~ /goal/", "group": "inline@3" },
+        { "command": "coreGoal.moveDown", "when": "view == coreGoalView && viewItem =~ /goal/", "group": "inline@4" },
+        { "command": "coreGoal.openFile", "when": "view == coreGoalView && viewItem =~ /scope/", "group": "inline" }
+      ]
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "npx @vscode/vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.5.0",
+    "@vscode/vsce": "^3.0.0"
+  }
+}
