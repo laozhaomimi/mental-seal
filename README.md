@@ -9,42 +9,77 @@
 
 这不是记忆问题，是**架构问题**。对话内容会被压缩，但 **system prompt 前缀永远不会**。
 
-**思想钢印利用这个不可压缩区：把核心目标刻进 system prompt 的 cache-stable 前缀。** 就像钢印刻入神经元——对话再长、压缩再狠、上下文窗口再满，信念永在。这是目前唯一从架构层面根治长对话思维偏离的方案。
+**思想钢印利用这个不可压缩区：把核心目标刻进 system prompt 的 cache-stable 前缀。** 就像钢印刻入神经元——对话再长、压缩再狠、上下文窗口再满，信念永在。
+
+---
+
+## 🚀 三种用法（任选其一）
+
+### 方式一：Reasonix 对话管理（推荐 ⭐）
+
+直接在 Reasonix 对话框里用自然语言操作，无需额外工具：
+
+```
+显示钢印           → 列出全部
+加钢印：xxxx       → 添加到当前项目
+加全局钢印：xxxx   → 添加到全局（所有项目生效）
+删钢印 3           → 删除第 3 条
+停用钢印 2         → 临时停用（不注入 AI）
+启用钢印 2         → 重新激活
+```
+
+**安装（30 秒）**：把 `install/mental-seal-skill.md` 复制到 Reasonix 全局 skills 目录：
+
+```bash
+mkdir -p %APPDATA%/reasonix/skills/mental-seal/
+copy install\mental-seal-skill.md %APPDATA%\reasonix\skills\mental-seal\SKILL.md
+```
+
+重启 Reasonix，在任何项目说「显示钢印」即可。
+
+### 方式二：VS Code / Cursor 侧边栏
+
+```bash
+code --install-extension mental-seal-0.1.0.vsix
+```
+
+打开后活动栏出现 🎯 图标，侧边栏可视化管理：
+- 🌐 全局 / 📁 工作区 / 🪟 窗口 三级作用域
+- ☑ 逐条勾选启用/停用
+- ➕ 添加 / 🗑 删除 / 🔼🔽 排序
+
+### 方式三：直接编辑文件
+
+| 级别 | 文件 | 说明 |
+|------|------|------|
+| 🌐 全局 | `%APPDATA%/reasonix/REASONIX.md` | 所有项目 |
+| 📁 项目 | `<项目>/.reasonix/REASONIX.md` | 当前项目 |
+
+改 `MENTAL-SEAL:START/END` 之间的 `- ` 行，保存即生效。
 
 ---
 
 ## ✨ 为什么叫思想钢印？
 
-| 三体中的钢印 | 本扩展 |
+| 三体中的钢印 | Mental Seal |
 |:---:|:---:|
 | 将信念刻入大脑神经元 | 将目标刻入 system prompt 前缀 |
 | 不可逆、不可删除 | 不会被 compact 压缩、不会随对话丢失 |
 | 受印者永远坚信 | Agent 每次会话启动都"记得"核心目标 |
 
-## 🏗️ 三级作用域
+---
 
-| 级别 | 写入文件 | 生效范围 |
-|------|----------|----------|
-| 🌐 全局 | `~/.config/reasonix/REASONIX.md` | 所有项目、所有会话 |
-| 📁 工作区 | `<project>/.reasonix/REASONIX.md` | 当前项目，可提交 git 共享给团队 |
-| 🪟 窗口 | `<project>/.reasonix/REASONIX.local.md` | 仅本机，不提交 git |
+## 📐 原理
 
-## 🎯 两类目标
+Reasonix 在每次会话启动时，将 `REASONIX.md` 的内容折叠进 **system prompt 的 cache-stable 前缀**：
 
-- **核心目标（钢印）**：每次会话自动注入 system prompt，Agent 永远记得。
-- **一般目标（记忆）**：存入 `goals.json`，生成 `/goals` skill，Agent 按需调用，不占每轮 token。
+- ✅ 每轮都在，不随对话增长而稀释
+- ✅ 不参与 compact 压缩
+- ✅ 命中 provider 缓存，几乎零额外 token 成本
 
-## 🚀 快速开始
+使用 `<!-- MENTAL-SEAL:START/END -->` 标记管理区段，**不破坏你在同一文件中的其他内容**。
 
-```bash
-# 安装
-code --install-extension mental-seal-0.1.0.vsix
-```
-
-1. 点击活动栏的 🎯 图标，打开「思想钢印」侧边栏
-2. 选择作用域（全局 / 工作区 / 窗口）
-3. 每行写一条核心目标，点击 💾 保存
-4. 完成。下一次 AI 会话启动时，目标已刻入。
+---
 
 ## 🔧 开发
 
@@ -54,16 +89,6 @@ npm run compile   # 编译
 npm run watch     # 监听模式
 npm run package   # 打包 VSIX
 ```
-
-## 📐 原理
-
-Reasonix / Hermes 在每次会话启动时，会将 `REASONIX.md` / `AGENTS.md` 的内容折叠进 **system prompt 的 cache-stable 前缀**。这个前缀：
-
-- ✅ 每轮都在，不随对话增长而稀释
-- ✅ 不参与 compact 压缩
-- ✅ 命中 provider 缓存，几乎零额外 token 成本
-
-本扩展通过 `<!-- MENTAL-SEAL:START/END -->` 标记管理区段，**不会破坏你在同一文件中的其他内容**。
 
 ## 📄 License
 
