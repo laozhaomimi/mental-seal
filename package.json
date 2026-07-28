@@ -1,7 +1,7 @@
 {
   "name": "mental-seal",
   "displayName": "Mental Seal · 思想钢印",
-  "description": "长对话思维偏离终结者：将核心目标刻入 system prompt 不可压缩区，三层记忆做不到的事，钢印一次搞定。",
+  "description": "AI长对话思维偏离终结者：将核心目标刻入 system prompt 不可压缩区，三层记忆做不到的事，钢印一次搞定。",
   "version": "0.1.0",
   "publisher": "local",
   "engines": { "vscode": "^1.85.0" },
