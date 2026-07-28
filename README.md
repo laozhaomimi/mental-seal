@@ -160,3 +160,10 @@ npm run package   # package VSIX
 ## 📄 License
 
 MIT
+
+---
+
+## 🌐 社区
+
+- [Hermes PR #73201](https://github.com/NousResearch/hermes-agent/pull/73201) — 提交到 Hermes 官方 optional-skills
+- [Reasonix Issue #7004](https://github.com/esengine/DeepSeek-Reasonix/issues/7004) — 分享给 Reasonix 社区
