@@ -4,6 +4,8 @@
 
 **AI长对话思维偏离终结者** — *The end of AI thought-drift in long conversations.*
 
+🖥️ 支持 [Reasonix](https://reasonix.com) · [Hermes](https://github.com/nousresearch/hermes-agent) · VS Code · Cursor
+
 ---
 
 ## 中文
@@ -16,9 +18,9 @@
 
 ### 🚀 三种用法
 
-**方式一：Reasonix 对话管理（推荐 ⭐）**
+**方式一：在对话中直接管理（推荐 ⭐）**
 
-直接在对话框里用自然语言操作：
+支持 Reasonix · Hermes。直接对 AI 说：
 
 | 你说 | 效果 |
 |------|------|
@@ -29,7 +31,19 @@
 | `停用钢印 2` | 停用（不注入 AI） |
 | `启用钢印 2` | 重新激活 |
 
-安装：把 `install/mental-seal-skill.md` 复制到 Reasonix 全局 skills 目录，重启即可。
+**Reasonix 安装：**
+```bash
+mkdir -p %APPDATA%/reasonix/skills/mental-seal/
+copy install/mental-seal-skill.md %APPDATA%/reasonix/skills/mental-seal/SKILL.md
+```
+
+**Hermes 安装：**
+```bash
+mkdir -p "%LOCALAPPDATA%/Hermes Agent CN Desktop/data/hermes-home/skills/mental-seal/"
+copy install/mental-seal-skill.md "%LOCALAPPDATA%/Hermes Agent CN Desktop/data/hermes-home/skills/mental-seal/SKILL.md"
+```
+
+重启即可。在任何项目中说「显示钢印」。
 
 **方式二：VS Code / Cursor 侧边栏**
 
@@ -37,16 +51,18 @@
 code --install-extension mental-seal-0.1.0.vsix
 ```
 
-点击活动栏 🎯 图标，侧边栏可视化管理：🌐 全局 / 📁 项目 / 🪟 窗口 三级作用域，☑ 逐条勾选，拖拽排序。
+点击活动栏 🎯 图标，侧边栏可视化管理：三级作用域、逐条勾选、拖拽排序。
 
 **方式三：直接编辑文件**
 
-| 级别 | 文件 |
-|------|------|
-| 🌐 全局 | `%APPDATA%/reasonix/REASONIX.md` |
-| 📁 项目 | `<项目>/.reasonix/REASONIX.md` |
+| 级别 | Reasonix | Hermes |
+|------|----------|--------|
+| 🌐 全局 | `%APPDATA%/reasonix/REASONIX.md` | 待测试 |
+| 📁 项目 | `<项目>/.reasonix/REASONIX.md` | 待测试 |
 
 改 `MENTAL-SEAL:START/END` 之间的 `- ` 行，保存即生效。
+
+> Hermes 的系统注入机制与 Reasonix 略有不同，建议优先用对话方式管理（方式一），注入兼容性无需关心。
 
 ### ✨ 命名由来
 
@@ -58,7 +74,7 @@ code --install-extension mental-seal-0.1.0.vsix
 
 ### 📐 原理
 
-Reasonix 每次会话启动时，将 `REASONIX.md` 折叠进 system prompt 的 **cache-stable 前缀**：不参与 compact、命中 provider 缓存、几乎零 token 成本。`<!-- MENTAL-SEAL:START/END -->` 标记管理区段。
+支持的工具每次会话启动时，将指令文件折叠进 system prompt 的 **cache-stable 前缀**：不参与 compact、命中 provider 缓存、几乎零 token 成本。`<!-- MENTAL-SEAL:START/END -->` 标记管理区段。
 
 ---
 
@@ -72,9 +88,9 @@ Reasonix 每次会话启动时，将 `REASONIX.md` 折叠进 system prompt 的 *
 
 ### 🚀 Three ways to use
 
-**Option 1: Reasonix Chat (Recommended ⭐)**
+**Option 1: Chat-based management (Recommended ⭐)**
 
-Talk to the AI directly:
+Works with Reasonix · Hermes. Talk to the AI directly:
 
 | You say | Result |
 |---------|--------|
@@ -85,7 +101,19 @@ Talk to the AI directly:
 | `disable seal 2` | Pause (not injected) |
 | `enable seal 2` | Reactivate |
 
-Install: copy `install/mental-seal-skill.md` to Reasonix global skills directory, restart.
+**Reasonix install:**
+```bash
+mkdir -p %APPDATA%/reasonix/skills/mental-seal/
+copy install/mental-seal-skill.md %APPDATA%/reasonix/skills/mental-seal/SKILL.md
+```
+
+**Hermes install:**
+```bash
+mkdir -p "%LOCALAPPDATA%/Hermes Agent CN Desktop/data/hermes-home/skills/mental-seal/"
+copy install/mental-seal-skill.md "%LOCALAPPDATA%/Hermes Agent CN Desktop/data/hermes-home/skills/mental-seal/SKILL.md"
+```
+
+Restart the app, then say "show seals" in any project.
 
 **Option 2: VS Code / Cursor Extension**
 
@@ -97,12 +125,14 @@ code --install-extension mental-seal-0.1.0.vsix
 
 **Option 3: Edit files directly**
 
-| Scope | File |
-|-------|------|
-| 🌐 Global | `%APPDATA%/reasonix/REASONIX.md` |
-| 📁 Project | `<project>/.reasonix/REASONIX.md` |
+| Scope | Reasonix | Hermes |
+|-------|----------|--------|
+| 🌐 Global | `%APPDATA%/reasonix/REASONIX.md` | TBD |
+| 📁 Project | `<project>/.reasonix/REASONIX.md` | TBD |
 
 Modify `- ` lines between markers. Save → next session picks it up.
+
+> Hermes system prompt injection differs slightly from Reasonix. For Hermes users, we recommend chat-based management (Option 1) — injection compatibility is handled automatically.
 
 ### ✨ The name
 
@@ -114,7 +144,7 @@ Modify `- ` lines between markers. Save → next session picks it up.
 
 ### 📐 How it works
 
-Reasonix folds `REASONIX.md` into the system prompt's **cache-stable prefix** at session start: compaction-proof, cache-hit-eligible, near-zero token cost. The `<!-- MENTAL-SEAL:START/END -->` markers ensure your other content stays untouched.
+Supported tools fold their instruction file into the system prompt's **cache-stable prefix** at session start: compaction-proof, cache-hit-eligible, near-zero token cost. The `<!-- MENTAL-SEAL:START/END -->` markers ensure other content stays untouched.
 
 ---
 
